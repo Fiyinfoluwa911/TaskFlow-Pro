@@ -1,6 +1,8 @@
 # TaskFlow Pro
 
-TaskFlow Pro is a modern task management and productivity web application built with HTML, CSS, and JavaScript.
+TaskFlow Pro is a modern task management and productivity web application designed to help users organize tasks, manage projects, and track productivity through an intuitive dashboard.
+
+This project is part of my personal software engineering portfolio. Please do not copy, redistribute, or use this project commercially without my permission.
 
 ## Features
 
