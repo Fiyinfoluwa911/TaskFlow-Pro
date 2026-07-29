@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | TaskFlow Pro</title>
+
+    <link rel="preconnect"href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"href="https://fonts.gstatic.com"crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"rel="stylesheet">
+
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="CSS/dashboard.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="logo">
+
+                <i class="fa-solid fa-list-check"></i>
+
+                <span>TaskFlow</span>
+
+            </div>
+
+            <nav>
+
+                <a href="#" class="active">
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-list"></i>
+                    My Tasks
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-calendar"></i>
+                    Calendar
+                </a>
+
+                <a href="#">
+                <i class="fa-solid fa-chart-line"></i>
+                Analytics
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Logout
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Navigation -->
+            <header class="topbar">
+
+                 <div class="search">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                    type="text"
+                    placeholder="Search tasks...">
+
+                </div>
+
+                <div class="top-icons">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <i class="fa-regular fa-moon"></i>
+
+                    <img src="assets/images/avatar.png"
+                    class="avatar">
+
+                </div>
+
+            </header>
+
+            <!-- Welcome -->
+
+            <section class="welcome">
+
+                <h1>
+
+                    Hello, Fiyinfoluwa 👋
+
+                </h1>
+
+                <p>
+
+                    Let's make today productive.
+
+                </p>
+
+            </section>
+
+            <!-- Statistics -->
+
+            <section class="cards">
+
+                <div class="card">
+
+                    <i class="fa-solid fa-list"></i>
+
+                    <h2>48</h2>
+
+                    <p>Total Tasks</p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <h2>36</h2>
+
+                    <p>Completed</p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fa-solid fa-hourglass-half"></i>
+
+                    <h2>12</h2>
+
+                    <p>Pending</p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fa-solid fa-chart-simple"></i>
+
+                    <h2>75%</h2>
+
+                    <p>Productivity</p>
+
+                </div>
+
+            </section>
+
+            <section class="dashboard-grid">
+
+             <!-- Task Panel -->
+                <div class="tasks-panel">
+
+                    <div class="panel-header">
+
+                        <h2>Today's Tasks</h2>
+
+                        <button class="add-task">
+
+                            <i class="fa-solid fa-plus"></i>
+
+                             Add Task
+
+                        </button>
+
+                    </div>
+
+                    <div class="task-list">
+
+                        <div class="task-card high">
+
+                            <div class="task-info">
+
+                                <h3>Build Portfolio Website</h3>
+
+                                <p>Due Today</p>
+
+                            </div>
+
+                            <span class="badge high">High</span>
+
+                        </div>
+
+                        <div class="task-card medium">
+
+                            <div class="task-info">
+
+                                <h3>Study JavaScript</h3>
+
+                                <p>Due Tomorrow</p>
+
+                            </div>
+
+                            <span class="badge medium">Medium</span>
+
+                        </div>
+
+                        <div class="task-card low">
+
+                            <div class="task-info">
+
+                                <h3>Read Clean Code</h3>
+
+                                <p>Due Friday</p>
+
+                            </div>
+
+                            <span class="badge low">Low</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Calendar Placeholder -->
+
+                <div class="calendar-panel">
+
+                    <h2>Calendar</h2>
+
+                    <div class="calendar-placeholder">
+
+                        Calendar Coming Soon
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Add Task Modal -->
+    <div class="modal hidden" id="taskModal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Add New Task</h2>
+                <b id="closeModal">&times;</b>
+            </div>
+
+            <form id="taskForm">
+
+                <div class="form-group">
+                    <label>Task Title</label>
+                    <input
+                        type="text"
+                        id="taskTitle"
+                        placeholder="Enter task title"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input
+                        type="date"
+                        id="taskDate"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Priority</label>
+
+                    <select id="taskPriority">
+
+                        <option>High</option>
+
+                        <option>Medium</option>
+
+                        <option>Low</option>
+
+                    </select>
+
+                </div>
+
+                <button class="save-btn">
+
+                    Save Task
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script src="JS/dashboard.js"></script>
+
+</body>
+</html>
