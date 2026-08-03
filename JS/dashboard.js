@@ -43,6 +43,19 @@ const taskDate = document.getElementById("taskDate");
 const taskPriority = document.getElementById("taskPriority");
 const taskList = document.getElementById("taskList");
 
+
+// ==========================================
+// TASK STORAGE
+// ==========================================
+
+let tasks = [];
+function saveTasks() {
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+}
+
+
 function formatDueDate(dateString) {
 
     const today = new Date();
@@ -71,6 +84,70 @@ function formatDueDate(dateString) {
 
 }
 
+//When the page opens, load the saved 
+// tasks automatically.
+function createTaskCard(task) {
+
+    const taskCard = document.createElement("div");
+
+    taskCard.className = `task-card ${task.priority.toLowerCase()}`;
+
+    taskCard.innerHTML = `
+        <div class="task-info">
+            <h3>${task.title}</h3>
+            <p>Due ${formatDueDate(task.date)}</p>
+        </div>
+
+        <div class="task-actions">
+            <span class="badge ${task.priority.toLowerCase()}">
+                ${task.priority}
+            </span>
+
+            <button class="delete-btn">
+                🗑
+            </button>
+        </div>
+    `;
+
+    const deleteButton = taskCard.querySelector(".delete-btn");
+
+    deleteButton.addEventListener("click", () => {
+
+        taskCard.remove();
+
+        tasks = tasks.filter(t =>
+            !(t.title === task.title &&
+              t.date === task.date &&
+              t.priority === task.priority)
+        );
+
+        saveTasks();
+
+    });
+
+    taskList.prepend(taskCard);
+
+}
+
+function loadTasks() {
+
+    const storedTasks = localStorage.getItem("tasks");
+
+    if (!storedTasks) return;
+
+    tasks = JSON.parse(storedTasks);
+
+    taskList.innerHTML = "";
+
+    tasks.forEach(task => {
+
+        createTaskCard(task);
+
+    });
+
+}
+
+
 
 taskForm.addEventListener("submit", (event) => {    
     // stop the page from refreshing
@@ -85,20 +162,34 @@ taskForm.addEventListener("submit", (event) => {
         return;
     }
 
-    const taskCard = document.createElement("div");
-    taskCard.className = `task-card ${priority.toLowerCase()}`;
+    const task = {
 
-    taskCard.innerHTML = `
-        <div class="task-info">
-            <h3>${title}</h3>
-            <p>Due: ${formatDueDate(date)}</p>
-        </div>
-        <span class="badge ${priority.toLowerCase()}">${priority}</span>
-    `;
+        title,
+        date,
+        priority
 
-    taskList.prepend(taskCard);
+    };
+
+    tasks.push(task);
+
+    saveTasks();
+
+    
+
+    console.log(localStorage.getItem("tasks"));
+
+
+
+    createTaskCard(task);
+
+
+
 
     taskForm.reset();
     modal.classList.add("hidden");
 
+    
+
+    
 });
+loadTasks();    

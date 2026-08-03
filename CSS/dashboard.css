@@ -633,6 +633,29 @@ transform:translateY(0);
 
 }
 
+
+.task-actions{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.delete-btn{
+    border:none;
+    background:#EF4444;
+    color:white;
+    width:36px;
+    height:36px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.delete-btn:hover{
+    transform:scale(1.08);
+    background:#DC2626;
+}
+
 /* ==========================================
    RESPONSIVE /  responsive design
 ========================================== */
