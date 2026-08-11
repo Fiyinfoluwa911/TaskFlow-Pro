@@ -633,6 +633,9 @@ transform:translateY(0);
 
 }
 
+/* ==========================================
+   Delete bottons
+========================================== */
 
 .task-actions{
     display:flex;
@@ -654,6 +657,41 @@ transform:translateY(0);
 .delete-btn:hover{
     transform:scale(1.08);
     background:#DC2626;
+}
+
+/* ==========================================
+   Delete completed botton
+========================================== */
+
+.complete-btn{
+
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#10B981;
+    color:white;
+    transition:.3s;
+
+}
+
+.complete-btn:hover{
+
+    transform:scale(1.08);
+
+}
+
+.completed{
+
+    opacity:.6;
+
+}
+
+.completed h3{
+
+    text-decoration:line-through;
+
 }
 
 /* ==========================================

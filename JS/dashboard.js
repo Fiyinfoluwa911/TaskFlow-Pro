@@ -1,8 +1,8 @@
-// ==========================================
-// TASK MODAL
-// ==========================================
-
 console.log("Dashboard JS Loaded");
+
+// ==========================================
+// MODAL
+// ==========================================
 
 const addTaskButton = document.querySelector(".add-task");
 const modal = document.getElementById("taskModal");
@@ -20,18 +20,23 @@ if (addTaskButton && modal && closeButton) {
     });
 
     closeButton.addEventListener("click", () => {
-        modal.classList.toggle("hidden");
+        modal.classList.add("hidden");
     });
 
     modal.addEventListener("click", (event) => {
+
         if (event.target === modal) {
-            modal.classList.toggle("hidden");
+            modal.classList.add("hidden");
         }
+
     });
 
 } else {
-    console.error("One or more elements were not found.");
+
+    console.error("One or more modal elements were not found.");
+
 }
+
 
 // ==========================================
 // TASK FORM
@@ -45,10 +50,21 @@ const taskList = document.getElementById("taskList");
 
 
 // ==========================================
+// STATISTICS ELEMENTS
+// ==========================================
+
+const totalTasks = document.getElementById("totalTasks");
+const completedTasks = document.getElementById("completedTasks");
+const pendingTasks = document.getElementById("pendingTasks");
+const productivity = document.getElementById("productivity");
+
+
+// ==========================================
 // TASK STORAGE
 // ==========================================
 
 let tasks = [];
+
 function saveTasks() {
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -56,24 +72,60 @@ function saveTasks() {
 }
 
 
+// ==========================================
+// UPDATE STATISTICS
+// ==========================================
+
+function updateStatistics() {
+
+    const total = tasks.length;
+
+    const completed = tasks.filter(task => task.completed).length;
+
+    const pending = total - completed;
+
+    const percent = total === 0
+        ? 0
+        : Math.round((completed / total) * 100);
+
+    totalTasks.textContent = total;
+    completedTasks.textContent = completed;
+    pendingTasks.textContent = pending;
+    productivity.textContent = percent + "%";
+
+}
+
+
+// ==========================================
+// FORMAT DUE DATE
+// ==========================================
+
 function formatDueDate(dateString) {
 
     const today = new Date();
     const dueDate = new Date(dateString);
 
-    // Remove time from both dates
     today.setHours(0, 0, 0, 0);
     dueDate.setHours(0, 0, 0, 0);
 
-    const diffDays = Math.round((dueDate - today) / (1000 * 60 * 60 * 24));
+    const diffDays = Math.round(
+        (dueDate - today) / (1000 * 60 * 60 * 24)
+    );
 
-    if (diffDays === 0) return "Today";
-    if (diffDays === 1) return "Tomorrow";
+    if (diffDays === 0) {
+        return "Today";
+    }
+
+    if (diffDays === 1) {
+        return "Tomorrow";
+    }
 
     if (diffDays > 1 && diffDays <= 6) {
+
         return dueDate.toLocaleDateString("en-US", {
             weekday: "long"
         });
+
     }
 
     return dueDate.toLocaleDateString("en-US", {
@@ -84,58 +136,122 @@ function formatDueDate(dateString) {
 
 }
 
-//When the page opens, load the saved 
-// tasks automatically.
+
+// ==========================================
+// CREATE TASK CARD
+// ==========================================
+
 function createTaskCard(task) {
 
     const taskCard = document.createElement("div");
 
-    taskCard.className = `task-card ${task.priority.toLowerCase()}`;
+    taskCard.className =
+        `task-card ${task.priority.toLowerCase()}`;
+
+    if (task.completed) {
+        taskCard.classList.add("completed");
+    }
 
     taskCard.innerHTML = `
+
         <div class="task-info">
+
             <h3>${task.title}</h3>
-            <p>Due ${formatDueDate(task.date)}</p>
+
+            <p>
+                Due ${formatDueDate(task.date)}
+            </p>
+
         </div>
 
         <div class="task-actions">
+
+            <button
+                class="complete-btn"
+                title="Complete task">
+                ${task.completed ? "✔" : "○"}
+            </button>
+
+            <button
+                class="delete-btn"
+                title="Delete task">
+                🗑
+            </button>
+
             <span class="badge ${task.priority.toLowerCase()}">
                 ${task.priority}
             </span>
 
-            <button class="delete-btn">
-                🗑
-            </button>
         </div>
+
     `;
 
-    const deleteButton = taskCard.querySelector(".delete-btn");
+
+    // ==========================================
+    // COMPLETE BUTTON
+    // ==========================================
+
+    const completeButton =
+        taskCard.querySelector(".complete-btn");
+
+    completeButton.addEventListener("click", () => {
+
+        task.completed = !task.completed;
+
+        taskCard.classList.toggle(
+            "completed",
+            task.completed
+        );
+
+        completeButton.textContent =
+            task.completed ? "✔" : "○";
+
+        saveTasks();
+
+        updateStatistics();
+
+    });
+
+
+    // ==========================================
+    // DELETE BUTTON
+    // ==========================================
+
+    const deleteButton =
+        taskCard.querySelector(".delete-btn");
 
     deleteButton.addEventListener("click", () => {
 
         taskCard.remove();
 
-        tasks = tasks.filter(t =>
-            !(t.title === task.title &&
-              t.date === task.date &&
-              t.priority === task.priority)
-        );
+        tasks = tasks.filter(t => t !== task);
 
         saveTasks();
 
+        updateStatistics();
+
     });
+
 
     taskList.prepend(taskCard);
 
 }
 
+
+// ==========================================
+// LOAD SAVED TASKS
+// ==========================================
+
 function loadTasks() {
 
-    const storedTasks = localStorage.getItem("tasks");
+    const storedTasks =
+        localStorage.getItem("tasks");
 
-    if (!storedTasks) return;
+    if (storedTasks) {
 
-    tasks = JSON.parse(storedTasks);
+        tasks = JSON.parse(storedTasks);
+
+    }
 
     taskList.innerHTML = "";
 
@@ -145,51 +261,74 @@ function loadTasks() {
 
     });
 
+    updateStatistics();
+
 }
 
 
+// ==========================================
+// ADD NEW TASK
+// ==========================================
 
-taskForm.addEventListener("submit", (event) => {    
-    // stop the page from refreshing
+taskForm.addEventListener("submit", (event) => {
+
     event.preventDefault();
 
-    const title = taskTitle.value.trim();
-    const date = taskDate.value;
-    const priority = taskPriority.value;
+    const title =
+        taskTitle.value.trim();
+
+    const date =
+        taskDate.value;
+
+    const priority =
+        taskPriority.value;
+
 
     if (title === "") {
+
         alert("Please enter a task title.");
+
         return;
+
     }
+
 
     const task = {
 
-        title,
-        date,
-        priority
+        title: title,
+
+        date: date,
+
+        priority: priority,
+
+        completed: false
 
     };
+
 
     tasks.push(task);
 
     saveTasks();
 
-    
-
-    console.log(localStorage.getItem("tasks"));
-
-
-
     createTaskCard(task);
 
+    updateStatistics();
 
+    console.log(
+        "Saved tasks:",
+        localStorage.getItem("tasks")
+    );
 
 
     taskForm.reset();
+
     modal.classList.add("hidden");
 
-    
-
-    
 });
-loadTasks();    
+
+
+// ==========================================
+// INITIALIZE DASHBOARD
+// ==========================================
+
+loadTasks();
