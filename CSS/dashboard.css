@@ -695,6 +695,26 @@ transform:translateY(0);
 }
 
 /* ==========================================
+   EDIT TASK BUTTON
+========================================== */
+
+.edit-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #4F46E5;
+    color: white;
+    transition: .3s;
+}
+
+.edit-btn:hover {
+    transform: scale(1.08);
+    background: #4338CA;
+}
+
+/* ==========================================
    RESPONSIVE /  responsive design
 ========================================== */
 

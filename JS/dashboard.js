@@ -47,6 +47,10 @@ const taskTitle = document.getElementById("taskTitle");
 const taskDate = document.getElementById("taskDate");
 const taskPriority = document.getElementById("taskPriority");
 const taskList = document.getElementById("taskList");
+const modalTitle = document.getElementById("modalTitle");
+const saveTaskButton = document.getElementById("saveTaskButton");
+
+let editingTask = null;
 
 
 // ==========================================
@@ -173,6 +177,12 @@ function createTaskCard(task) {
             </button>
 
             <button
+                class="edit-btn"
+                title="Edit task">
+                ✏️
+            </button>
+
+            <button
                 class="delete-btn"
                 title="Delete task">
                 🗑
@@ -193,6 +203,24 @@ function createTaskCard(task) {
 
     const completeButton =
         taskCard.querySelector(".complete-btn");
+
+    const editButton =
+        taskCard.querySelector(".edit-btn");
+
+    editButton.addEventListener("click", () => {
+
+        editingTask = task;
+
+        taskTitle.value = task.title;
+        taskDate.value = task.date;
+        taskPriority.value = task.priority;
+
+        modalTitle.textContent = "Edit Task";
+        saveTaskButton.textContent = "Update Task";
+
+        modal.classList.remove("hidden");
+
+    });
 
     completeButton.addEventListener("click", () => {
 
@@ -274,37 +302,61 @@ taskForm.addEventListener("submit", (event) => {
 
     event.preventDefault();
 
-    const title =
-        taskTitle.value.trim();
-
-    const date =
-        taskDate.value;
-
-    const priority =
-        taskPriority.value;
-
+    const title = taskTitle.value.trim();
+    const date = taskDate.value;
+    const priority = taskPriority.value;
 
     if (title === "") {
-
         alert("Please enter a task title.");
-
         return;
-
     }
 
+
+    // ==========================================
+    // EDIT EXISTING TASK
+    // ==========================================
+
+    if (editingTask) {
+
+        editingTask.title = title;
+        editingTask.date = date;
+        editingTask.priority = priority;
+
+        saveTasks();
+
+        taskList.innerHTML = "";
+
+        tasks.forEach(task => {
+            createTaskCard(task);
+        });
+
+        updateStatistics();
+
+        editingTask = null;
+
+        modalTitle.textContent = "Add New Task";
+        saveTaskButton.textContent = "Save Task";
+
+        taskForm.reset();
+
+        modal.classList.add("hidden");
+
+        return;
+    }
+
+
+    // ==========================================
+    // CREATE NEW TASK
+    // ==========================================
 
     const task = {
 
         title: title,
-
         date: date,
-
         priority: priority,
-
         completed: false
 
     };
-
 
     tasks.push(task);
 
@@ -319,12 +371,12 @@ taskForm.addEventListener("submit", (event) => {
         localStorage.getItem("tasks")
     );
 
-
     taskForm.reset();
 
     modal.classList.add("hidden");
 
 });
+
 
 
 // ==========================================
