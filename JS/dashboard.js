@@ -47,6 +47,7 @@ const taskTitle = document.getElementById("taskTitle");
 const taskDate = document.getElementById("taskDate");
 const taskPriority = document.getElementById("taskPriority");
 const taskList = document.getElementById("taskList");
+const searchInput = document.getElementById("searchInput");
 const modalTitle = document.getElementById("modalTitle");
 const saveTaskButton = document.getElementById("saveTaskButton");
 
@@ -270,28 +271,43 @@ function createTaskCard(task) {
 // LOAD SAVED TASKS
 // ==========================================
 
+
 function loadTasks() {
 
-    const storedTasks =
-        localStorage.getItem("tasks");
+    const storedTasks = localStorage.getItem("tasks");
 
     if (storedTasks) {
-
         tasks = JSON.parse(storedTasks);
-
+    } else {
+        tasks = [];
     }
 
-    taskList.innerHTML = "";
+    console.log("Tasks loaded:", tasks);
 
-    tasks.forEach(task => {
+    // Reset filter
+    currentFilter = "all";
 
-        createTaskCard(task);
+    // Reset search
+    searchInput.value = "";
+
+    // Make All button active
+    filterButtons.forEach(button => {
+
+        button.classList.remove("active");
+
+        if (button.dataset.filter === "all") {
+            button.classList.add("active");
+        }
 
     });
 
-    updateStatistics();
+    // Display saved tasks
+    displayTasks();
 
+    // Update statistics
+    updateStatistics();
 }
+
 
 
 // ==========================================
@@ -324,13 +340,10 @@ taskForm.addEventListener("submit", (event) => {
 
         saveTasks();
 
-        taskList.innerHTML = "";
-
-        tasks.forEach(task => {
-            createTaskCard(task);
-        });
-
+       
         updateStatistics();
+
+        displayTasks();
 
         editingTask = null;
 
@@ -362,9 +375,10 @@ taskForm.addEventListener("submit", (event) => {
 
     saveTasks();
 
-    createTaskCard(task);
 
     updateStatistics();
+
+    displayTasks();
 
     console.log(
         "Saved tasks:",
@@ -383,4 +397,129 @@ taskForm.addEventListener("submit", (event) => {
 // INITIALIZE DASHBOARD
 // ==========================================
 
+
+
+// ==========================================
+// SEARCH + TASK FILTERS
+// ==========================================
+
+
+const filterButtons =
+    document.querySelectorAll(".filter-btn");
+
+let currentFilter = "all";
+
+
+// ==========================================
+// DISPLAY TASKS
+// ==========================================
+
+function displayTasks() {
+
+    taskList.innerHTML = "";
+
+    const searchTerm =
+        searchInput.value.toLowerCase().trim();
+
+
+    let filteredTasks = tasks;
+
+
+    // Filter by status
+    if (currentFilter === "pending") {
+
+        filteredTasks =
+            filteredTasks.filter(task =>
+                !task.completed
+            );
+
+    }
+
+
+    if (currentFilter === "completed") {
+
+        filteredTasks =
+            filteredTasks.filter(task =>
+                task.completed
+            );
+
+    }
+
+
+    // Filter by search term
+    if (searchTerm !== "") {
+
+        filteredTasks =
+            filteredTasks.filter(task =>
+                task.title
+                    .toLowerCase()
+                    .includes(searchTerm)
+            );
+
+    }
+
+
+    // Display results
+    filteredTasks.forEach(task => {
+
+        createTaskCard(task);
+
+    });
+
+
+    // Show message when nothing is found
+    if (filteredTasks.length === 0) {
+
+        taskList.innerHTML = `
+            <div class="no-tasks">
+                No tasks found.
+            </div>
+        `;
+
+    }
+
+}
+
+
+// ==========================================
+// SEARCH
+// ==========================================
+
+searchInput.addEventListener("input", () => {
+
+    displayTasks();
+
+});
+
+
+// ==========================================
+// FILTER BUTTONS
+// ==========================================
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn => {
+
+            btn.classList.remove("active");
+
+        });
+
+
+        button.classList.add("active");
+
+
+        currentFilter =
+            button.dataset.filter;
+
+
+        displayTasks();
+
+    });
+
+});
+
 loadTasks();
+
+

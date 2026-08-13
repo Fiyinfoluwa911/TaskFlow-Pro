@@ -84,6 +84,7 @@
 
                     <input
                     type="text"
+                    id="searchInput"
                     placeholder="Search tasks...">
 
                 </div>
@@ -172,13 +173,32 @@
 
                     <div class="panel-header">
 
-                        <h2>Today's Tasks</h2>
+                        <div>
+                            <h2>Today's Tasks</h2>
+
+                            <div class="task-filters">
+
+                                <button class="filter-btn active" data-filter="all">
+                                    All
+                                </button>
+
+                                <button class="filter-btn" data-filter="pending">
+                                    Pending
+                                </button>
+
+                                <button class="filter-btn" data-filter="completed">
+                                    Completed
+                                </button>
+
+                            </div>
+
+                        </div>
 
                         <button class="add-task">
 
                             <i class="fa-solid fa-plus"></i>
 
-                             Add Task
+                            Add Task
 
                         </button>
 
