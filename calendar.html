@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow-Pro | Calender</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="CSS/calendar.css">
+</head>
+<body>
+
+    <div class="calendar-container">
+
+        <!-- Header -->
+        <header class="calendar-header">
+
+            <div>
+                <h1>My Calendar</h1>
+                <p>Manage your tasks and deadlines.</p>
+            </div>
+
+            <a href="dashboard.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Dashboard
+            </a>
+
+        </header>
+
+        <!-- Calendar Section -->
+        <section class="calendar-section">
+
+            <div class="calendar-top">
+
+                <h2 id="monthYear">November 2026</h2>
+
+                <div class="calendar-navigation">
+
+                    <button id="prevMonth">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button id="todayBtn">Today</button>
+
+                    <button id="nextMonth">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Calendar Legend -->
+            <div class="calendar-legend">
+
+                <div class="legend-item">
+                    <span class="legend-dot high"></span>
+                    <span>High Priority</span>
+                </div>
+
+                <div class="legend-item">
+                    <span class="legend-dot medium"></span>
+                    <span>Medium Priority</span>
+                </div>
+
+                <div class="legend-item">
+                    <span class="legend-dot low"></span>
+                    <span>Low Priority</span>
+                </div>
+
+                <div class="legend-item">
+                    <span class="legend-dot completed"></span>
+                    <span>Completed</span>
+                </div>
+
+            </div>
+
+
+            <!-- Weekdays -->
+            <div class="calendar-grid weekdays">
+
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+
+            </div>
+
+            <!-- Calendar Dates -->
+            <div class="calendar-grid" id="calendarDays">
+
+            </div>
+
+        </section>
+
+        <!-- Selected Date Tasks -->
+        <section class="selected-date-section">
+
+            <h2 id="selectedDateTitle">
+                Select a date
+            </h2>
+
+            <div id="selectedDateTasks">
+                <p>Select a date to view your tasks.</p>
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="JS/calendar.js"></script>
+
+    
+</body>
+</html>

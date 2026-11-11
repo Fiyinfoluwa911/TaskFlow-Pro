@@ -48,6 +48,7 @@ const taskDate = document.getElementById("taskDate");
 const taskPriority = document.getElementById("taskPriority");
 const taskList = document.getElementById("taskList");
 const searchInput = document.getElementById("searchInput");
+const sortSelect = document.getElementById("sortSelect");
 const modalTitle = document.getElementById("modalTitle");
 const saveTaskButton = document.getElementById("saveTaskButton");
 
@@ -375,6 +376,21 @@ taskForm.addEventListener("submit", (event) => {
 
     saveTasks();
 
+    // ===========================================
+    // Switch back to All after adding a task
+    // ===========================================
+    currentFilter = "all";
+
+    filterButtons.forEach(button => {
+    button.classList.remove("active");
+
+    if (button.dataset.filter === "all") {
+        button.classList.add("active");
+    }
+    });
+
+    searchInput.value = "";
+
 
     updateStatistics();
 
@@ -404,8 +420,7 @@ taskForm.addEventListener("submit", (event) => {
 // ==========================================
 
 
-const filterButtons =
-    document.querySelectorAll(".filter-btn");
+const filterButtons = document.querySelectorAll(".filter-btn");
 
 let currentFilter = "all";
 
@@ -415,71 +430,68 @@ let currentFilter = "all";
 // ==========================================
 
 function displayTasks() {
-
     taskList.innerHTML = "";
 
-    const searchTerm =
-        searchInput.value.toLowerCase().trim();
+    const searchTerm = searchInput.value.toLowerCase().trim();
 
-
-    let filteredTasks = tasks;
-
+    // Create a copy so sorting doesn't change the original tasks
+    let filteredTasks = [...tasks];
 
     // Filter by status
     if (currentFilter === "pending") {
-
-        filteredTasks =
-            filteredTasks.filter(task =>
-                !task.completed
-            );
-
+        filteredTasks = filteredTasks.filter(task => !task.completed);
     }
-
 
     if (currentFilter === "completed") {
-
-        filteredTasks =
-            filteredTasks.filter(task =>
-                task.completed
-            );
-
+        filteredTasks = filteredTasks.filter(task => task.completed);
     }
-
 
     // Filter by search term
     if (searchTerm !== "") {
-
-        filteredTasks =
-            filteredTasks.filter(task =>
-                task.title
-                    .toLowerCase()
-                    .includes(searchTerm)
-            );
-
+        filteredTasks = filteredTasks.filter(task =>
+            task.title.toLowerCase().includes(searchTerm)
+        );
     }
 
+    // Sort tasks
+    const sortType = sortSelect.value;
 
-    // Display results
+    if (sortType === "date") {
+        filteredTasks.sort((a, b) =>
+            new Date(a.date) - new Date(b.date)
+        );
+    }
+
+    if (sortType === "priority") {
+        const priorityOrder = {
+            High: 1,
+            Medium: 2,
+            Low: 3
+        };
+
+        filteredTasks.sort((a, b) =>
+            priorityOrder[a.priority] - priorityOrder[b.priority]
+        );
+    }
+
+    if (sortType === "newest") {
+        filteredTasks.reverse();
+    }
+
+    // Display tasks
     filteredTasks.forEach(task => {
-
         createTaskCard(task);
-
     });
 
-
-    // Show message when nothing is found
+    // Show a message if no tasks match
     if (filteredTasks.length === 0) {
-
         taskList.innerHTML = `
             <div class="no-tasks">
                 No tasks found.
             </div>
         `;
-
     }
-
 }
-
 
 // ==========================================
 // SEARCH
@@ -517,6 +529,12 @@ filterButtons.forEach(button => {
         displayTasks();
 
     });
+
+});
+
+sortSelect.addEventListener("change", () => {
+
+    displayTasks();
 
 });
 

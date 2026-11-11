@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-Pro | Analytics</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="CSS/analytics.css">
+
+</head>
+<body>
+    
+    <div class="analytics-container">
+
+        <header class="analytics-header">
+            <div>
+                <h1>Task Analytics</h1>
+                <p>Track your productivity and task progress.</p>
+            </div>
+
+            <a href="dashboard.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+        </header>
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <i class="fa-solid fa-list-check"></i>
+                <h3>Total Tasks</h3>
+                <p id="totalTasks">0</p>
+            </div>
+
+            <div class="stat-card">
+                <i class="fa-solid fa-circle-check"></i>
+                <h3>Completed</h3>
+                <p id="completedTasks">0</p>
+            </div>
+
+            <div class="stat-card">
+                <i class="fa-solid fa-clock"></i>
+                <h3>Pending</h3>
+                <p id="pendingTasks">0</p>
+            </div>
+
+            <div class="stat-card">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h3>Overdue</h3>
+                <p id="overdueTasks">0</p>
+            </div>
+
+        </section>
+
+        <section class="progress-section">
+            <h2>Overall Task Completion</h2>
+
+            <div class="progress-bar">
+                <div id="progressFill"></div>
+            </div>
+
+            <p id="completionPercentage">0% Completed</p>
+        </section>
+
+        <section class="chart-section">
+            <h2>Productivity Overview</h2>
+            <canvas id="productivityChart"></canvas>
+        </section>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="JS/analytics.js"></script>
+
+</body>
+</html>
