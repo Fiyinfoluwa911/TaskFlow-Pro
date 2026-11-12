@@ -386,11 +386,16 @@ body.dark-mode h2{
     color: #111827;
 }
 
+body.dark-mode .ha{
+    color: #eeedff;
+}
+
 body.dark-mode h1, 
 body.dark-mode h3,
 body.dark-mode p {
     color: #f9fafb;
 }
+
 
 @media (max-width: 600px) {
     body {

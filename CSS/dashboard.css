@@ -797,6 +797,23 @@ body.dark-mode .modal-content {
     color: #f9fafb;
 }
 
+
+/* Dark Mode Task Text */
+body.dark-mode .task-card h3,
+body.dark-mode .task-card p,
+
+body.dark-mode .task-card label {
+    color: #f9fafb;
+}
+
+body.dark-mode .task-card {
+    border-color: #374151;
+}
+
+body.dark-mode .task-card span{
+    color:#111827;
+}
+
 body.dark-mode input,
 body.dark-mode select,
 body.dark-mode textarea {
@@ -814,6 +831,52 @@ body.dark-mode h3 {
     color: #1f2937;
 }
 
+
+/* Search Bar Layout */
+
+
+/* Search Bar */
+
+
+/* Search Bar */
+.search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Search Input */
+.search input {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    padding-right: 50px;
+}
+
+/* Clear Search Button */
+#clearSearch {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+#clearSearch:hover {
+    color: #ef4444;
+}
 
 /* ==========================================
    RESPONSIVE /  responsive design

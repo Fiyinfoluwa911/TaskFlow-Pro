@@ -48,6 +48,9 @@ const taskDate = document.getElementById("taskDate");
 const taskPriority = document.getElementById("taskPriority");
 const taskList = document.getElementById("taskList");
 const searchInput = document.getElementById("searchInput");
+
+const clearSearch = document.getElementById("clearSearch");
+
 const sortSelect = document.getElementById("sortSelect");
 const modalTitle = document.getElementById("modalTitle");
 const saveTaskButton = document.getElementById("saveTaskButton");
@@ -497,12 +500,36 @@ function displayTasks() {
 // SEARCH
 // ==========================================
 
+
+//==========================================================
+// Show or hide the clear button
+//==========================================================
+
+function updateClearButton() {
+    clearSearch.style.display =
+        searchInput.value.trim() !== "" ? "block" : "none";
+}
+
+// Search tasks
 searchInput.addEventListener("input", () => {
 
     displayTasks();
+    updateClearButton();
 
 });
 
+// Clear search
+clearSearch.addEventListener("click", () => {
+
+    searchInput.value = "";
+
+    displayTasks();
+    updateClearButton();
+
+});
+
+// Set initial button visibility
+updateClearButton();
 
 // ==========================================
 // FILTER BUTTONS
