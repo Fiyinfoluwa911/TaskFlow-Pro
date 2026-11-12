@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | TaskFlow-Pro</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="CSS/settings.css">
+
+</head>
+<body>
+    <div class="settings-container">
+
+        <header class="settings-header">
+            <div>
+                <h1>Settings</h1>
+                <p>Customize your TaskFlow-Pro experience.</p>
+            </div>
+
+            <a href="dashboard.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Dashboard
+            </a>
+        </header>
+
+        <section class="settings-section">
+
+            <h2>Appearance</h2>
+            <p>Choose how TaskFlow-Pro looks on your device.</p>
+
+            <div class="setting-option">
+                <div>
+                    <h3>Dark Mode</h3>
+                    <span>Switch between light and dark themes.</span>
+                </div>
+
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+        </section>
+
+        <section class="settings-section">
+
+            <h2>General Settings</h2>
+            <p>Manage your application preferences.</p>
+
+            <div class="setting-option">
+                <div>
+                    <h3>Reset Settings</h3>
+                    <span>Restore the default light theme.</span>
+                </div>
+
+                <button id="resetSettings" class="reset-btn">
+                    Reset
+                </button>
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="JS/theme.js"></script>
+    <script src="JS/settings.js"></script>
+</body>
+</html>

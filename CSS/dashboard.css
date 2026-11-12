@@ -773,6 +773,48 @@ transform:translateY(0);
     border: 1px solid var(--primary);
 }
 
+
+/* Dark Mode Theme */
+body.dark-mode {
+    background: #111827;
+    color: #f9fafb;
+}
+
+body.dark-mode .sidebar {
+    background: #1f2937;
+    color: #f9fafb;
+}
+
+body.dark-mode .main-content {
+    background: #111827;
+    color: #f9fafb;
+}
+
+body.dark-mode .task-card,
+body.dark-mode .stat-card,
+body.dark-mode .modal-content {
+    background: #1f2937;
+    color: #f9fafb;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background: #374151;
+    color: #f9fafb;
+    border-color: #4b5563;
+}
+
+body.dark-mode h1{
+    color: #f9fafb;
+}
+
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: #1f2937;
+}
+
+
 /* ==========================================
    RESPONSIVE /  responsive design
 ========================================== */

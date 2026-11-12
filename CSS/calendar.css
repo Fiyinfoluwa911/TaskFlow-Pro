@@ -344,6 +344,54 @@ body {
     background: #888;
 }
 
+/* Dark Mode Theme */
+body.dark-mode {
+    background: #111827;
+    color: #f9fafb;
+}
+
+body.dark-mode .sidebar {
+    background: #1f2937;
+    color: #f9fafb;
+}
+
+body.dark-mode .main-content {
+    background: #111827;
+    color: #f9fafb;
+}
+
+body.dark-mode .calendar-container,
+body.dark-mode .calendar-card,
+body.dark-mode .calendar-header,
+body.dark-mode .selected-date-section {
+    background: #1f2937;
+    color: #f9fafb;
+}
+
+body.dark-mode .calendar-day {
+    background: #374151;
+    color: #f9fafb;
+    border-color: #4b5563;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+    background: #374151;
+    color: #f9fafb;
+    border-color: #4b5563;
+}
+
+
+body.dark-mode h2{
+    color: #111827;
+}
+
+body.dark-mode h1, 
+body.dark-mode h3,
+body.dark-mode p {
+    color: #f9fafb;
+}
+
 @media (max-width: 600px) {
     body {
         padding: 12px;
